@@ -26,7 +26,7 @@ describe('CourseForm via React Test Utils', () => {
     const { output } = setup();
     expect(output.type).toBe('form');
     let [h1] = output.props.children;
-    expect(h1.type).toBe('h1')
+    expect(h1.type).toBe('h1');
   });
 
   it('save button is labeled Save when not saving', () => {
