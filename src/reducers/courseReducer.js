@@ -17,6 +17,17 @@ export default function courseReducer(state = initialState.courses, action) {
         ...state.filter(course => course.id !== action.course.id),
         Object.assign({}, action.course)
       ];
+
+    case types.DELETE_COURSE_SUCCESS: {
+      const newState = Object.assign([], state);
+      const indexOfCourseToDelete = state.findIndex(course => {
+        return course.id == action.course.id;
+      });
+
+      newState.splice(indexOfCourseToDelete, 1);
+      return newState;
+    }
+
     default:
       return state;
   }

@@ -19,6 +19,21 @@ describe('Course Actions', () => {
       expect(action).toEqual(expectedAction);
     });
   });
+
+  describe('deleteCourseSuccess', () => {
+    it('should create a DELETE_COURSE_SUCCESS action', () => {
+      const course = {id: 'clean-code', title: 'Clean Code'};
+
+      const expectedAction = {
+        type: types.DELETE_COURSE_SUCCESS,
+        course: course
+      };
+
+      const action = courseActions.deleteCourseSuccess(course);
+
+      expect(action).toEqual(expectedAction);
+    });
+  });
 });
 
 const middleware = [thunk];
@@ -45,6 +60,23 @@ describe('Async actions', () => {
       const actions = store.getActions();
       expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
       expect(actions[1].type).toEqual(types.LOAD_COURSES_SUCCESS);
+      done();
+    });
+  });
+
+  it('should create DELETE_COURSE_SUCCESS', (done) => {
+    const course = {'id:': '1', title: 'A'};
+
+    const expectedActions = [
+      {type: types.BEGIN_AJAX_CALL},
+      {type: types.DELETE_COURSE_SUCCESS }
+    ];
+
+    const store = mockStore({courses: []}, expectedActions);
+    store.dispatch(courseActions.deleteCourse(course)).then(() => {
+      const actions = store.getActions();
+      expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
+      expect(actions[1].type).toEqual(types.DELETE_COURSE_SUCCESS);
       done();
     });
   });
